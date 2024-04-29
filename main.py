@@ -52,7 +52,7 @@ class Table:
             for j in range(total_columns):
                  
                 e = Entry(root, fg='blue',
-                               font=('Arial',12,'bold'))
+                               font=('Arial',12,'bold'), height=4)
                  
                 e.grid(row=i, column=j)
                 e.insert(END, lst[i][j])
