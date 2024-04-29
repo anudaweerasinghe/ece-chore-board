@@ -17,7 +17,7 @@ class Table:
         for i in range(total_rows):
             for j in range(total_columns):
                  
-                self.e = Entry(root, width=16, fg='blue',
+                self.e = Entry(root, fg='blue',
                                font=('Arial',14,'bold'))
                  
                 self.e.grid(row=i, column=j)
