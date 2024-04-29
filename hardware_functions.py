@@ -1,4 +1,3 @@
-from re import Match
 import RPi.GPIO as GPIO
 
 def setup():
