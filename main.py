@@ -7,26 +7,23 @@ people = ["JOSH", "JEN", "KATIE", "JONATHAN"]
 class Table:
      
     def __init__(self,root):
-         
+        num_chores = len(chores)
+
+        lst = [[""]+chores] + [[person]+["-"]*num_chores for person in people]
+
+        total_rows = len(lst)
+        total_columns = len(lst[0])
         # code for creating table
         for i in range(total_rows):
             for j in range(total_columns):
                  
-                self.e = Entry(root, width=20, fg='white',
+                self.e = Entry(root, width=20, fg='blue',
                                font=('Arial',16,'bold'))
                  
                 self.e.grid(row=i, column=j)
                 self.e.insert(END, lst[i][j])
 
-num_chores = len(chores)
 
-# take the data
-lst = [[""]+chores, [people[0]]+["-"]*num_chores, [people[1]]+["-"]*num_chores, [people[2]]+["-"]*num_chores, [people[3]]+["-"]*num_chores]
-  
-# find total number of rows and
-# columns in list
-total_rows = len(lst)
-total_columns = len(lst[0])
   
 # create root window
 root = Tk()
