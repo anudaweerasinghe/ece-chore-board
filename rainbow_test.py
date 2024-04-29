@@ -1,4 +1,4 @@
-from hardware_functions.py import setup, onlyOne
+from hardware_functions import *
 import time
 
 setup()
