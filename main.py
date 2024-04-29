@@ -19,6 +19,23 @@ class Table:
         current_date = datetime.now()
 
         event.widget.insert(0, current_date.strftime("%d %B %H:%M"))
+
+        col = event.widget.grid_info()['column']
+
+        next_entry = self.entries[("NEXT", chores[col-1])]
+
+        min_timestamp = float("inf") 
+        next = people[0]
+
+        for person in people:
+            value = self.entries[(person, chores[col-1])].get()
+            int_timestamp = float("-inf") if value == "-" else datetime.strptime(value, "%d %B %H:%M").timestamp()
+            if int_timestamp <= min_timestamp:
+                min_timestamp = int_timestamp
+                next = person
+
+        next_entry.delete(0, END)
+        next_entry.insert(0, next)
      
     def __init__(self,root):
         
