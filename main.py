@@ -29,6 +29,10 @@ class Table:
 
         for person in people:
             value = self.entries[(person, chores[col-1])].get()
+            if value == "-":
+                next = person
+                break
+
             int_timestamp = float("-inf") if value == "-" else datetime.strptime(value, "%d %B %H:%M:%S").timestamp()
             if int_timestamp <= min_timestamp:
                 min_timestamp = int_timestamp
