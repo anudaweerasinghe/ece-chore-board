@@ -1,7 +1,7 @@
 from tkinter import *
 
 
-chores = ["TRASH", "DISHES", "VACUUM", "BATHROOM", "DOG"]
+chores = ["TRASH", "DISHES", "VACUUM", "BATHROOM"]
 people = ["JOSH", "JEN", "KATIE", "JONATHAN"]
  
 class Table:
@@ -17,7 +17,7 @@ class Table:
         for i in range(total_rows):
             for j in range(total_columns):
                  
-                self.e = Entry(root, width=len(lst[i][j])*2, fg='blue',
+                self.e = Entry(root, fg='blue',
                                font=('Arial',12,'bold'))
                  
                 self.e.grid(row=i, column=j)
