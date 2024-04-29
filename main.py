@@ -1,4 +1,5 @@
 from tkinter import *
+from datetime import datetime
 
 
 chores = ["TRASH", "DISHES", "VACUUM", "BATHROOM"]
@@ -11,10 +12,18 @@ def set_default_next_assignments():
         next_assignments[chore] = people[i % len(people)]
 
 class Table:
+
+    def on_click(self, event):
+        event.widget.delete(0, END)
+
+        current_date = datetime.now()
+
+        event.widget.insert(0, current_date.strftime("%d %B %H:%M"))
      
     def __init__(self,root):
         
-        set_default_next_assignments()
+        self.entries = {}
+        
         num_chores = len(chores)
 
         lst = [[""]+chores] + [[person]+["-"]*num_chores for person in people] + [["NEXT"]+[next_assignments[chore] for chore in chores]]
@@ -25,15 +34,24 @@ class Table:
         for i in range(total_rows):
             for j in range(total_columns):
                  
-                self.e = Entry(root, fg='blue',
+                e = Entry(root, fg='blue',
                                font=('Arial',12,'bold'))
                  
-                self.e.grid(row=i, column=j)
-                self.e.insert(END, lst[i][j])
+                e.grid(row=i, column=j)
+                e.insert(END, lst[i][j])
 
+                if i>0 and j>0:
+                    person = people[i-1] if i <= len(people) else "NEXT"
+                    self.entries[(person, chores[j-1])] = e
 
-  
+                    if i <= len(people):
+                        e.bind("<1>", self.on_click)
+
+set_default_next_assignments()
+
 # create root window
 root = Tk()
 t = Table(root)
+
+# Set the position of button on the top of window.   
 root.mainloop()
