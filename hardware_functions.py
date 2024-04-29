@@ -8,12 +8,12 @@ def setup():
     GPIO.setup(17, GPIO.OUT)
 
 def onlyOne(x : int):
-    if (x == 2):
+    if (x == 0):
         GPIO.output(2, True);
         GPIO.output(3, False);
         GPIO.output(4, False);
         GPIO.output(17, False);
-    elif (x == 2):
+    elif (x == 1):
         GPIO.output(2, False);
         GPIO.output(3, True);
         GPIO.output(4, False);
@@ -23,7 +23,7 @@ def onlyOne(x : int):
         GPIO.output(3, False);
         GPIO.output(4, True);
         GPIO.output(17, False);
-    elif (x == 17):
+    elif (x == 3):
         GPIO.output(2, False);
         GPIO.output(3, False);
         GPIO.output(4, False);
