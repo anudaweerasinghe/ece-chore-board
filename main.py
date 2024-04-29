@@ -33,7 +33,7 @@ class Table:
                 next = person
                 break
 
-            int_timestamp = float("-inf") if value == "-" else datetime.strptime(value, "%d %B %H:%M:%S").timestamp()
+            int_timestamp = datetime.strptime(value, "%d %B %H:%M:%S").timestamp()
             if int_timestamp <= min_timestamp:
                 min_timestamp = int_timestamp
                 next = person
