@@ -78,11 +78,11 @@ class Table:
     def resize(self, event):
         print("width", root.winfo_screenwidth() / self.total_columns)
         print("height", root.winfo_screenheight() / self.total_rows)
-        for e in self.entries.values():
-            e.place(width= 20,
-                    height= 20)
+        # for e in self.entries.values():
+        #     e.place(width= 20,
+        #             height= 20)
      
-    def __init__(self,root):
+    def __init__(self,root, frame):
         
         self.entries = {}
         
@@ -94,13 +94,15 @@ class Table:
         self.total_columns = len(lst[0])
         # code for creating table
         for i in range(self.total_rows):
+            Grid.rowconfigure(frame, i, weight=1)
             for j in range(self.total_columns):
+                Grid.columnconfigure(frame, j, weight=1)
                  
-                e = Entry(root, 
+                e = Entry(frame, 
                           fg='blue', 
                           font=('Arial',18,'bold'))
                  
-                e.grid(row=i, column=j)
+                e.grid(row=i, column=j, sticky= "wens")
                 e.insert(END, lst[i][j])
 
                 if i>0 and j>0:
@@ -130,7 +132,12 @@ set_default_next_assignments()
 
 # create root window
 root = Tk()
-t = Table(root)
+root.title("Chore Chart")
+Grid.rowconfigure(root, 0, weight=1)
+Grid.columnconfigure(root, 0, weight=1)
+frame = Frame(root)
+frame.grid(row=0, column=0, sticky="wens")
+t = Table(root, frame)
 
 # Set the position of button on the top of window.   
 root.mainloop()
