@@ -1,5 +1,6 @@
 from tkinter import *
 from datetime import datetime
+from hardware_functions import *
 
 
 chores = ["TRASH", "DISHES", "VACUUM", "BATHROOM"]
@@ -23,6 +24,7 @@ class Table:
         row = event.widget.grid_info()['row']
         col = event.widget.grid_info()['column']
         self.moveSelected(row-1, col-1)
+        onlyOne(col)
 
         next_entry = self.entries[("NEXT", chores[col-1])]
 
@@ -75,13 +77,6 @@ class Table:
         event.widget = self.entries[(people[self.selectedX], chores[self.selectedY])]
         self.on_click(event)
 
-    def resize(self, event):
-        print("width", root.winfo_screenwidth() / self.total_columns)
-        print("height", root.winfo_screenheight() / self.total_rows)
-        # for e in self.entries.values():
-        #     e.place(width= 20,
-        #             height= 20)
-     
     def __init__(self,root, frame):
         
         self.entries = {}
@@ -111,8 +106,6 @@ class Table:
 
                     if i <= len(people):
                         e.bind("<1>", self.on_click)
-        #Resize window
-        root.bind("<Configure>", self.resize)
         #Keyboard support
         self.selectedX = 0
         self.selectedY = 0
