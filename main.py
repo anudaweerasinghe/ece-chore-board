@@ -18,7 +18,28 @@ class Table:
 
         current_date = datetime.now()
 
-        event.widget.insert(0, current_date.strftime("%d %B %H:%M"))
+        event.widget.insert(0, current_date.strftime("%d %B %H:%M:%S"))
+
+        col = event.widget.grid_info()['column']
+
+        next_entry = self.entries[("NEXT", chores[col-1])]
+
+        min_timestamp = float("inf") 
+        next = people[0]
+
+        for person in people:
+            value = self.entries[(person, chores[col-1])].get()
+            if value == "-":
+                next = person
+                break
+
+            int_timestamp = datetime.strptime(value, "%d %B %H:%M:%S").timestamp()
+            if int_timestamp <= min_timestamp:
+                min_timestamp = int_timestamp
+                next = person
+
+        next_entry.delete(0, END)
+        next_entry.insert(0, next)
      
     def __init__(self,root):
         
@@ -35,7 +56,7 @@ class Table:
             for j in range(total_columns):
                  
                 e = Entry(root, fg='blue',
-                               font=('Arial',12,'bold'))
+                               font=('Arial',18,'bold'))
                  
                 e.grid(row=i, column=j)
                 e.insert(END, lst[i][j])
