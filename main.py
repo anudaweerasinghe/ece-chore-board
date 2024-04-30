@@ -133,7 +133,6 @@ set_default_next_assignments()
 # create root window
 root = Tk()
 root.title("Chore Chart")
-root.grid(row=0, column=0, sticky="wens")
 Grid.rowconfigure(root, 0, weight=1)
 Grid.columnconfigure(root, 0, weight=1)
 frame = Frame(root)
