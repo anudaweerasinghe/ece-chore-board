@@ -24,7 +24,7 @@ class Table:
         row = event.widget.grid_info()['row']
         col = event.widget.grid_info()['column']
         self.moveSelected(row-1, col-1)
-        onlyOne(col)
+        onlyOne(4 - col)
 
         next_entry = self.entries[("NEXT", chores[col-1])]
 
