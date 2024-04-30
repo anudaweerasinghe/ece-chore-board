@@ -123,6 +123,8 @@ class Table:
 
 set_default_next_assignments()
 
+setup()
+
 # create root window
 root = Tk()
 root.title("Chore Chart")
