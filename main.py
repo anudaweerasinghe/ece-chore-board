@@ -35,7 +35,13 @@ class Table:
                 next = person
                 break
 
-            int_timestamp = datetime.strptime(value, "%d %B %H:%M:%S").timestamp()
+            dt = datetime.strptime(value, "%d %B %H:%M:%S")
+
+            # Create a new datetime object with the year set to 2024
+            dt = dt.replace(year=2024)
+
+            # Convert the datetime to timestamp
+            int_timestamp = dt.timestamp()
             if int_timestamp <= min_timestamp:
                 min_timestamp = int_timestamp
                 next = person
