@@ -3,8 +3,8 @@ from datetime import datetime
 from hardware_functions import *
 
 
-chores = ["TRASH", "DISHES", "VACUUM", "BATHROOM"]
-people = ["JOSH", "JEN", "KATIE", "JONATHAN"]
+chores = ["TRASH", "DISHES", "VACUUM", "SOLDERING"]
+people = ["Anuda", "Jonathan", "Tom", "Cole"]
 
 next_assignments = {}
 
