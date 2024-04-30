@@ -70,6 +70,17 @@ class Table:
     def moveRight(self, event):
         if (self.selectedY < len(chores) - 1):
             self.moveSelected(self.selectedX, self.selectedY + 1)
+
+    def simulatedClick(self, event):
+        event.widget = self.entries[(people[self.selectedX], chores[self.selectedY])]
+        self.on_click(event)
+
+    def resize(self, event):
+        print("width", root.winfo_screenwidth() / self.total_columns)
+        print("height", root.winfo_screenheight() / self.total_rows)
+        for e in self.entries.values():
+            e.place(width= 20,
+                    height= 20)
      
     def __init__(self,root):
         
@@ -79,14 +90,15 @@ class Table:
 
         lst = [[""]+chores] + [[person]+["-"]*num_chores for person in people] + [["NEXT"]+[next_assignments[chore] for chore in chores]]
 
-        total_rows = len(lst)
-        total_columns = len(lst[0])
+        self.total_rows = len(lst)
+        self.total_columns = len(lst[0])
         # code for creating table
-        for i in range(total_rows):
-            for j in range(total_columns):
+        for i in range(self.total_rows):
+            for j in range(self.total_columns):
                  
-                e = Entry(root, fg='blue',
-                               font=('Arial',18,'bold'))
+                e = Entry(root, 
+                          fg='blue', 
+                          font=('Arial',18,'bold'))
                  
                 e.grid(row=i, column=j)
                 e.insert(END, lst[i][j])
@@ -97,15 +109,22 @@ class Table:
 
                     if i <= len(people):
                         e.bind("<1>", self.on_click)
-        #Typing mode for manual entry
+        #Resize window
+        root.bind("<Configure>", self.resize)
         #Keyboard support
         self.selectedX = 0
         self.selectedY = 0
         self.entries[(people[self.selectedX], chores[self.selectedY])].config({"background": "dodger blue"})
         root.bind("<Up>", self.moveUp)
+        root.bind("2", self.moveUp)
         root.bind("<Down>", self.moveDown)
+        root.bind("8", self.moveDown)
         root.bind("<Left>", self.moveLeft)
+        root.bind("4", self.moveLeft)
         root.bind("<Right>", self.moveRight)
+        root.bind("6", self.moveRight)
+        root.bind("<Return>", self.simulatedClick)
+        root.bind("5", self.simulatedClick)
 
 set_default_next_assignments()
 
