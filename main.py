@@ -20,7 +20,9 @@ class Table:
 
         event.widget.insert(0, current_date.strftime("%d %B %H:%M:%S"))
 
+        row = event.widget.grid_info()['row']
         col = event.widget.grid_info()['column']
+        self.moveSelected(row-1, col-1)
 
         next_entry = self.entries[("NEXT", chores[col-1])]
 
@@ -40,6 +42,28 @@ class Table:
 
         next_entry.delete(0, END)
         next_entry.insert(0, next)
+
+    def moveSelected(self, x : int, y : int):
+        self.entries[(people[self.selectedX], chores[self.selectedY])].config({"background": "white"})
+        self.selectedX = x
+        self.selectedY = y
+        self.entries[(people[self.selectedX], chores[self.selectedY])].config({"background": "dodger blue"})
+        
+    def moveUp(self, event):
+        if (self.selectedX > 0):
+            self.moveSelected(self.selectedX - 1, self.selectedY)
+
+    def moveDown(self, event):
+        if (self.selectedX < len(people) - 1):
+            self.moveSelected(self.selectedX + 1, self.selectedY)
+     
+    def moveLeft(self, event):
+        if (self.selectedY > 0):
+            self.moveSelected(self.selectedX, self.selectedY - 1)
+
+    def moveRight(self, event):
+        if (self.selectedY < len(chores) - 1):
+            self.moveSelected(self.selectedX, self.selectedY + 1)
      
     def __init__(self,root):
         
@@ -67,6 +91,15 @@ class Table:
 
                     if i <= len(people):
                         e.bind("<1>", self.on_click)
+        #Typing mode for manual entry
+        #Keyboard support
+        self.selectedX = 0
+        self.selectedY = 0
+        self.entries[(people[self.selectedX], chores[self.selectedY])].config({"background": "dodger blue"})
+        root.bind("<Up>", self.moveUp)
+        root.bind("<Down>", self.moveDown)
+        root.bind("<Left>", self.moveLeft)
+        root.bind("<Right>", self.moveRight)
 
 set_default_next_assignments()
 
